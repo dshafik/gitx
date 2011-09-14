@@ -47,7 +47,8 @@
 	NSPoint center = NSMakePoint( origin.x + columnWidth * to, origin.y + r.size.height * 0.5 + 0.5);
 
 	NSArray* colors = [PBGitRevisionCell laneColors];
-	[[colors objectAtIndex: c % [colors count]] set];
+	NSColor * color = [colors objectAtIndex: c % [colors count]];
+	[color set];
 	
 	NSBezierPath * path = [NSBezierPath bezierPath];
 	[path setLineWidth:2];
