@@ -15,12 +15,14 @@
 
 - (id) initWithBaseCommits:(NSSet *)commits viewAllBranches:(BOOL)viewAll queue:(NSOperationQueue *)queue delegate:(id)theDelegate
 {
-	delegate = theDelegate;
-	currentQueue = queue;
-	searchSHAs = [NSMutableSet setWithSet:commits];
-	grapher = [[PBGitGrapher alloc] initWithRepository:nil];
-	viewAllBranches = viewAll;
-
+	self = [super init];
+	if (self) {
+		delegate = theDelegate;
+		currentQueue = queue;
+		searchSHAs = [NSMutableSet setWithSet:commits];
+		grapher = [[PBGitGrapher alloc] initWithRepository:nil];
+		viewAllBranches = viewAll;
+	}
 	return self;
 }
 

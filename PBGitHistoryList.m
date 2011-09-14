@@ -44,15 +44,18 @@
 
 - (id) initWithRepository:(PBGitRepository *)repo
 {
-	commits = [NSMutableArray array];
-	repository = repo;
-	lastBranchFilter = -1;
-	[repository addObserver:self forKeyPath:@"currentBranch" options:0 context:@"currentBranch"];
-	[repository addObserver:self forKeyPath:@"currentBranchFilter" options:0 context:@"currentBranch"];
-	[repository addObserver:self forKeyPath:@"hasChanged" options:0 context:@"repositoryHasChanged"];
+	self = [super init];
+	if (self) {
+		commits = [NSMutableArray array];
+		repository = repo;
+		lastBranchFilter = -1;
+		[repository addObserver:self forKeyPath:@"currentBranch" options:0 context:@"currentBranch"];
+		[repository addObserver:self forKeyPath:@"currentBranchFilter" options:0 context:@"currentBranch"];
+		[repository addObserver:self forKeyPath:@"hasChanged" options:0 context:@"repositoryHasChanged"];
 
-	shouldReloadProjectHistory = YES;
-	projectRevList = [[PBGitRevList alloc] initWithRepository:repository rev:[PBGitRevSpecifier allBranchesRevSpec] shouldGraph:NO];
+		shouldReloadProjectHistory = YES;
+		projectRevList = [[PBGitRevList alloc] initWithRepository:repository rev:[PBGitRevSpecifier allBranchesRevSpec] shouldGraph:NO];
+	}
 
 	return self;
 }

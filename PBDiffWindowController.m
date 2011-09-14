@@ -18,7 +18,9 @@
 
 - (id) initWithDiff:(NSString *)aDiff
 {
-	if (![super initWithWindowNibName:@"PBDiffWindow"])
+	self = [super initWithWindowNibName:@"PBDiffWindow"];
+
+	if (! self)
 		return nil;
 
 	diff = aDiff;

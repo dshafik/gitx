@@ -19,39 +19,42 @@
 // internal designated init
 - (id) initWithParameters:(NSArray *)params description:(NSString *)descrip
 {
-	parameters = params;
-	description = descrip;
+	self = [super init];
+	
+	if (self) {
+		parameters = params;
+		description = descrip;
 
-	if (([parameters count] > 1) || ([parameters count] == 0))
-		isSimpleRef =  NO;
-	else {
-		NSString *param = [parameters objectAtIndex:0];
-		if ([param hasPrefix:@"-"] ||
-			[param rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"^@{}~:"]].location != NSNotFound ||
-			[param rangeOfString:@".."].location != NSNotFound)
+		if (([parameters count] > 1) || ([parameters count] == 0))
 			isSimpleRef =  NO;
-		else
-			isSimpleRef =  YES;
+		else {
+			NSString *param = [parameters objectAtIndex:0];
+			if ([param hasPrefix:@"-"] ||
+				[param rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"^@{}~:"]].location != NSNotFound ||
+				[param rangeOfString:@".."].location != NSNotFound)
+				isSimpleRef =  NO;
+			else
+				isSimpleRef =  YES;
+		}
 	}
-
 	return self;
 }
 
 - (id) initWithParameters:(NSArray *)params
 {
-	[self initWithParameters:params description:nil];
+	self = [self initWithParameters:params description:nil];
 	return self;
 }
 
 - (id) initWithRef:(PBGitRef *)ref
 {
-	[self initWithParameters:[NSArray arrayWithObject:ref.ref] description:ref.shortName];
+	self = [self initWithParameters:[NSArray arrayWithObject:ref.ref] description:ref.shortName];
 	return self;
 }
 
 - (id) initWithCoder:(NSCoder *)coder
 {
-	[self initWithParameters:[coder decodeObjectForKey:@"Parameters"] description:[coder decodeObjectForKey:@"Description"]];
+	self = [self initWithParameters:[coder decodeObjectForKey:@"Parameters"] description:[coder decodeObjectForKey:@"Description"]];
 	return self;
 }
 
