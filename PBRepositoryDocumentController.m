@@ -16,8 +16,9 @@
 - (NSInteger)runModalOpenPanel:(NSOpenPanel *)openPanel forTypes:(NSArray *)extensions
 {
 	[openPanel setCanChooseFiles:YES];
-	[openPanel setCanChooseDirectories:YES];
-	return [openPanel runModalForDirectory:nil file:nil types:[NSArray arrayWithObject: @"git"]];
+	[openPanel setCanChooseDirectories:YES];	
+	[openPanel setAllowedFileTypes: [NSArray arrayWithObject: @"git"]];
+	return [openPanel runModal];
 }
 
 // Convert paths to the .git dir before searching for an already open document
